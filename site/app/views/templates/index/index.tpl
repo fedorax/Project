@@ -26,9 +26,9 @@
               </li>
             </ul>
             <form class="navbar-form pull-right" method="post" action="./index.php">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
+              <input class="span2" type="text" name="email" placeholder="Email">
+              <input class="span2" type="password" name="password" placeholder="Password">
+              <button type="submit" name="loginbtn" class="btn">Sign in</button>
             </form>
           </div><!--/.nav-collapse -->
         </div>
