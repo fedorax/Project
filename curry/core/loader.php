@@ -28,10 +28,10 @@ class Loader
 	/**
 	 * Name of directory to search include file
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	protected static $_autoloadDirs = array('core', 'exception', 'db');
-	
+
 	/**
 	 * Load a file that defines the class of Curry
 	 *
@@ -44,7 +44,7 @@ class Loader
 		if (self::classExists($className)) {
 			return true;
 		}
-		$fileName = NameManager::toPhpFile($className);		
+		$fileName = NameManager::toPhpFile($className);
 		if ($dir != null) {
 			$fileName = $dir . '/' . $fileName;
 		}
@@ -61,7 +61,7 @@ class Loader
 		}
 		return require_once $fileName;
 	}
-		
+
 	/**
 	 * Load a file that defines the class of Curry and get instance
 	 *
@@ -82,7 +82,23 @@ class Loader
 		$instance = new $className();
 		return $instance;
 	}
-	
+	/**
+	 * Load a file that defines the constant class
+	 *
+	 * @param string $className The name of the constant class to read
+	 * @param string $subDir Constant subdirectory that contains the file.
+	 * @return void
+	 */
+	public static  function loadConstant($className, $subdir = '')
+	{
+		// verify the existence of a file
+		$path = PathManager::getConstantDirectory();
+		if ($subdir != '') {
+			$path .= '/' . trim($subdir, '/');
+		}
+		$res = self::load($className, $path, false, false);
+		return $res;
+	}
 	/**
 	 * Load a file that defines the controller class
 	 *
@@ -100,14 +116,48 @@ class Loader
 		$res = self::load($className, $path, false, false);
 		return $res;
 	}
-	
+
+	/**
+	 * Load a file that defines the constant class and return that instance
+	 *
+	 * @param string $className The name of the constant class to get instance
+	 * @param string $subdir Constant subdirectory that contains the file
+	 * @return Instance of constant class
+	 */
+	public static function getConstantInstance($className, $subdir = '')
+	{
+		$res = self::loadConstant($className, $subdir);
+		if ($res == false) {
+			return false;
+		}
+		$instance = null;
+		if ($subdir) {
+			// if class name is added prefix.
+			$splited = explode('/', trim($subdir, '/'));
+			$splited[] = $className;
+			$prefixedClassName = implode('_', $splited);
+			$prefixedClassName = NameManager::toClass($prefixedClassName);
+			if (self::classExists($prefixedClassName)) {
+				$instance = new $prefixedClassName();
+			}
+		}
+		if ($instance === null) {
+			if (!self::classExists($className)) {
+				self::load('ClassUndefinedException', 'exception');
+				throw new ClassUndefinedException($className);
+			}
+			$instance = new $className();
+		}
+
+		return $instance;
+	}
 	/**
 	 * Load a file that defines the controller class and return that instance
 	 *
 	 * @param string $className The name of the controller class to get instance
 	 * @param string $subdir Controller subdirectory that contains the file
 	 * @return Instance of controller class
-	 */	
+	 */
 	public static function getControllerInstance($className, $subdir = '')
 	{
 		$res = self::loadController($className, $subdir);
@@ -135,10 +185,10 @@ class Loader
 
         return $instance;
 	}
-		
+
 	/**
 	 * Load a file that defines model class
-	 * 
+	 *
 	 * @param string $className The name of the controller class to read
 	 * @param string $subdir
 	 * @return boolean
@@ -152,17 +202,17 @@ class Loader
 		$res = self::load($className, $path, false, false);
 		return $res;
 	}
-	
+
 	/**
 	 * Load a file that defines the model class and return that instance
 	 *
 	 * @param string $className The name of the model class to get instance
 	 * @return Instance of model class
-	 */		
-	
+	 */
+
 	/**
 	 * Load a file that defines model class and return that instance
-	 * 
+	 *
 	 * @param string $className The name of the model class to get instance
 	 * @param string $subdir
 	 * @return Model
@@ -171,7 +221,7 @@ class Loader
 	public static function getModelInstance($className, $subdir = '')
 	{
 		$instance = false;
-		
+
 		$res = self::loadModel($className, $subdir);
 		if ($res == false) {
 			if (Model::isAllowVirtual()) {
@@ -185,13 +235,13 @@ class Loader
 			}
 			$instance = new $className();
 		}
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * Load a file that defines service class
-	 * 
+	 *
 	 * @param string $className
 	 * @param string $subdir
 	 * @return boolean
@@ -205,10 +255,10 @@ class Loader
 		$res = self::load($className, $path, false, false);
 		return $res;
 	}
-	
+
 	/**
 	 * Load a file that defines the service class and return that instance
-	 * 
+	 *
 	 * @param string $className The name of the service class to get instance
 	 * @param string $subdir
 	 * @return Service
@@ -216,7 +266,7 @@ class Loader
 	 * @throws ClassUndefinedException
 	 */
 	public static function getServiceInstance($className, $subdir = '')
-	{		
+	{
 		$res = self::loadService($className, $subdir);
 		if ($res == false) {
 			$fileName = NameManager::toPhpFile($className);
@@ -228,10 +278,10 @@ class Loader
 			throw new ClassUndefinedException($className);
 		}
 		$instance = new $className();
-		
+
 		return $instance;
 	}
-		
+
 	/**
 	 * Load a file that defines the view script class
 	 *
@@ -246,24 +296,24 @@ class Loader
 		if ($subdir != '') {
 			$path .= '/' . trim($subdir, '/');
 		}
-		$res = self::load($className, $path, false, false);		
+		$res = self::load($className, $path, false, false);
 		return $res;
 	}
-	
+
 	/**
 	 * Load a file that defines the view script class and return that instance
 	 *
 	 * @param string $className The name of the view script class to get instance
 	 * @param string $subdir View script subdirectory that contains the file
 	 * @return Instance of view script class
-	 */	
+	 */
 	public static function getViewScriptInstance($className, $subdir = '')
 	{
 		$res = self::loadViewScript($className, $subdir);
 		if ($res == false) {
 			return false;
 		}
-		
+
 		$instance = null;
 		if ($subdir) {
 			// if class name is added prefix.
@@ -285,10 +335,10 @@ class Loader
 
         return $instance;
 	}
-		
+
 	/**
 	 * Load a file that defines the library class
-	 * 
+	 *
 	 * @param string $className The name of the controller library to read
 	 * @param string $subdir
 	 * @return boolean
@@ -299,13 +349,13 @@ class Loader
 		if ($subdir != '') {
 			$path .= '/' . trim($subdir, '/');
 		}
-		$res = self::load($className, $path, false, false);		
+		$res = self::load($className, $path, false, false);
 		return $res;
 	}
-	
+
 	/**
 	 * Load a file that defines the library class and return that instance
-	 * 
+	 *
 	 * @param string $className The name of the library class to get instance
 	 * @param string $subdir
 	 * @return mixed
@@ -313,7 +363,7 @@ class Loader
 	 * @throws ClassUndefinedException
 	 */
 	public static function getLibraryInstance($className, $subdir = null)
-	{		
+	{
 		$res = self::loadLibrary($className, $subdir);
 		if ($res == false) {
 			$fileName = NameManager::toPhpFile($className);
@@ -325,24 +375,24 @@ class Loader
 			throw new ClassUndefinedException($className);
 		}
 		$instance = new $className();
-		
+
 		return $instance;
 	}
 
 	/**
 	 * Check whether the class is defined
-	 * 
+	 *
 	 * @param string $className
 	 * @return boolean
 	 */
 	public static function classExists($className)
-	{		
+	{
 		return class_exists($className, false);
 	}
-	
+
 	/**
 	 * Check whether the file exists
-	 * 
+	 *
 	 * @param string $filePath
 	 * @param boolean $searchIncludePath
 	 * @return boolean
@@ -369,10 +419,10 @@ class Loader
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Add name of directory to search include file
-	 * 
+	 *
 	 * @param string $directory
 	 * @return void
 	 */
@@ -388,10 +438,10 @@ class Loader
 			}
 		}
 	}
-	
+
 	/**
 	 * Include class file as autoload
-	 * 
+	 *
 	 * @param string $className
 	 * @return boolean
 	 * @throws Exception

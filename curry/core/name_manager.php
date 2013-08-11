@@ -26,26 +26,32 @@ class NameCase
 class NameManager
 {
 	/**
+	 * Suffix of constant class name
+	 *
+	 * @var string
+	 */
+	private static $_constantSuffix = 'Constant';
+	/**
 	 * Suffix of controller class name
 	 *
 	 * @var string
 	 */
 	private static $_controllerSuffix = 'Controller';
-		
+
 	/**
 	 * Suffix of view class name
 	 *
 	 * @var string
 	 */
 	private static $_viewSuffix = 'View';
-	
+
 	/**
 	 * Suffix of action method name in controller class
 	 *
 	 * @var string
 	 */
 	private static $_actionSuffix  = '';
-	
+
 	/**
 	 * Rest suffix of action method name
 	 *
@@ -57,49 +63,70 @@ class NameManager
 		'PUT'    => 'put',
 		'DELETE' => 'delete'
 	);
-	
+
 	/**
 	 * Naming convention of class name
 	 *
 	 * @var int
 	 */
 	private static $_classCase     = NameCase::PASCAL;
-	
+
 	/**
 	 * Naming convention of method name
 	 *
 	 * @var int
 	 */
 	private static $_methodCase    = NameCase::CAMEL;
-	
+
 	/**
 	 * Naming convention of file name
 	 *
 	 * @var int
 	 */
 	private static $_fileCase      = NameCase::SNAKE;
-	
+
 	/**
 	 * Naming convention of database table name
 	 *
 	 * @var int
 	 */
 	private static $_tableCase     = NameCase::SNAKE;
-	
+
 	/**
 	 * Extension of php file
 	 *
 	 * @var string
 	 */
 	private static $_phpExtension  = 'php';
-	
+
 	/**
 	 * Extension of view template file
 	 *
 	 * @var string
 	 */
 	private static $_tplExtension  = 'php';
-	
+
+	/**
+	 * Set suffix of constant class name
+	 *
+	 * @param string $suffix
+	 * @return void
+	 */
+	public static function setConstantSuffix($suffix)
+	{
+		self::$_constantSuffix = $suffix;
+	}
+
+	/**
+	 * Get suffix of constant class name
+	 *
+	 * @return string
+	 */
+	public static function getConstantSuffix()
+	{
+		return self::$_constantSuffix;
+	}
+
 	/**
 	 * Set suffix of controller class name
 	 *
@@ -110,7 +137,7 @@ class NameManager
 	{
 		self::$_controllerSuffix = $suffix;
 	}
-	
+
 	/**
 	 * Get suffix of controller class name
 	 *
@@ -120,7 +147,7 @@ class NameManager
 	{
 		return self::$_controllerSuffix;
 	}
-	
+
 	/**
 	 * Set suffix of action method name in controller class
 	 *
@@ -141,7 +168,7 @@ class NameManager
 	{
 		return self::$_actionSuffix;
 	}
-	
+
 	/**
 	 * Set rest suffix of action method name
 	 *
@@ -156,7 +183,7 @@ class NameManager
 			}
 		}
 	}
-	
+
 	/**
 	 * Get rest suffix of action method name
 	 *
@@ -169,7 +196,7 @@ class NameManager
 			return self::$_restActionSuffix[$method];
 		}
 	}
-	
+
 	/**
 	 * Set naming convention of class name
 	 *
@@ -190,7 +217,7 @@ class NameManager
 	{
 		return self::$_classCase;
 	}
-	
+
 	/**
 	 * Set naming convention of method name
 	 *
@@ -201,7 +228,7 @@ class NameManager
 	{
 		self::$_methodCase = $nameCase;
 	}
-	
+
 	/**
 	 * Get naming convention of method name
 	 *
@@ -211,7 +238,7 @@ class NameManager
 	{
 		return self::$_methodCase;
 	}
-	
+
 	/**
 	 * Set naming convention of file name
 	 *
@@ -232,7 +259,7 @@ class NameManager
 	{
 		return self::$_fileCase;
 	}
-	
+
 	/**
 	 * Set naming convention of database table name
 	 *
@@ -243,7 +270,7 @@ class NameManager
 	{
 		self::$_tableCase = $nameCase;
 	}
-	
+
 	/**
 	 * Get naming convention of table name name
 	 *
@@ -252,8 +279,8 @@ class NameManager
 	public static function getTableCase()
 	{
 		return self::$_tableCase;
-	}	
-	
+	}
+
 	/**
 	 * Set extension of php file
 	 *
@@ -264,7 +291,7 @@ class NameManager
 	{
 		self::$_phpExtension = $extension;
 	}
-	
+
 	/**
 	 * Get extension of php file
 	 *
@@ -285,7 +312,7 @@ class NameManager
 	{
 		self::$_tplExtension = $extension;
 	}
-	
+
 	/**
 	 * Get extension of view template file
 	 *
@@ -306,7 +333,7 @@ class NameManager
 	{
 		return self::convert($str, self::$_classCase);
 	}
-	
+
 	/**
 	 * Convert a string to naming convention of method
 	 *
@@ -317,7 +344,7 @@ class NameManager
 	{
 		return self::convert($str, self::$_methodCase);
 	}
-	
+
 	/**
 	 * Convert a string to naming convention of database table
 	 *
@@ -328,7 +355,7 @@ class NameManager
 	{
 		return self::convert($str, self::$_tableCase);
 	}
-	
+
 	/**
 	 * Convert a string to naming convention of file
 	 *
@@ -339,7 +366,7 @@ class NameManager
 	{
 		return self::convert($str, self::$_fileCase);
 	}
-		
+
 	/**
 	 * Convert a string to naming convention of file and add extension of php
 	 *
@@ -350,7 +377,18 @@ class NameManager
 	{
 		return self::toFile($str) . '.' . self::$_phpExtension;
 	}
-	
+
+	/**
+	 * Convert constant key to constant class name
+	 *
+	 * @param string $constant
+	 * @return string
+	 */
+	public static function convertConstantToClass($constant)
+	{
+		return self::toClass($constant . '_' . self::$_constantSuffix);
+	}
+
 	/**
 	 * Convert contoller key to controller class name
 	 *
@@ -361,7 +399,7 @@ class NameManager
 	{
 		return self::toClass($controller . '_' . self::$_controllerSuffix);
 	}
-	
+
 	/**
 	 * Convert contoller key to controller class name
 	 *
@@ -372,7 +410,7 @@ class NameManager
 	{
 		return self::toClass($controller . '_' . self::$_viewSuffix);
 	}
-	
+
 	/**
 	 * Convert action key to action method name
 	 *
@@ -389,7 +427,7 @@ class NameManager
 		}
 		return self::toMethod($action . $restSuffix . '_' . self::$_actionSuffix);
 	}
-	
+
 	/**
 	 * Convert a string to pascal case
 	 *
@@ -411,7 +449,7 @@ class NameManager
 	{
 		return self::convert($name, NameCase::CAMEL);
 	}
-	
+
 	/**
 	 * Convert a string to snake case
 	 *
@@ -422,7 +460,7 @@ class NameManager
 	{
 		return self::convert($name, NameCase::SNAKE);
 	}
-	
+
 	/**
 	 * Convert a string to case that specified by parameter
 	 *
@@ -434,7 +472,7 @@ class NameManager
 	{
 		$name = trim($name);
         $len = strlen($name);
-        
+
 		$words = array();
 		$wordIndex = 0;
 		for ($i = 0; $i < $len; $i++) {
@@ -453,7 +491,7 @@ class NameManager
             }
 			$words[$wordIndex] .= $lower;
 		}
-		
+
 		$ret = '';
 		if ($nameCase == NameCase::SNAKE) {
 			$ret = implode('_', $words);
@@ -466,13 +504,13 @@ class NameManager
 				}
 			}
 		}
-		
+
 		return $ret;
-	}	
-	
+	}
+
 	/**
 	 * Split by pause of word
-	 * 
+	 *
 	 * @param string $name
 	 * @return array
 	 */

@@ -16,24 +16,24 @@ class InitializerStandard extends CurryClass
 	 * @var Dispatcher
 	 */
 	protected $dispatcher;
-	
+
 	/**
 	 * Router instance
 	 *
 	 * @var Router
 	 */
 	protected $router;
-	
+
 	/**
 	 * Text that meaning the application environment
 	 *
 	 * @var string
 	 */
 	protected $_appEnv;
-	
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param string $appEnv
 	 */
 	public function __construct($appEnv = null)
@@ -41,16 +41,16 @@ class InitializerStandard extends CurryClass
         error_reporting(0);
 		$this->_appEnv = $appEnv;
 	}
-		
+
 	/**
 	 * Execute initialize
 	 *
 	 * @return void
 	 */
 	public function initialize()
-	{	
+	{
 	}
-	
+
 	/**
 	 * Set the Dispatcher instance
 	 *
@@ -61,7 +61,7 @@ class InitializerStandard extends CurryClass
 	{
 		$this->dispatcher = $dispatcher;
 	}
-	
+
 	/**
 	 * Set the Router instance
 	 *
@@ -72,12 +72,12 @@ class InitializerStandard extends CurryClass
 	{
 		$this->router = $router;
 	}
-	
+
 	public function initEnv()
 	{
-		if ($this->_appEnv != null) {			
+		if ($this->_appEnv != null) {
 			// Set default error template.
-			ViewAbstract::setDefaultErrorTemplate($this->_appEnv);			
+			ViewAbstract::setDefaultErrorTemplate($this->_appEnv);
 			// call initialize environment method.
 			$envInitMethod = NameManager::toMethod('init_' . $this->_appEnv);
 			if (method_exists($this, $envInitMethod)) {
@@ -85,17 +85,17 @@ class InitializerStandard extends CurryClass
 			}
 		}
 	}
-		
+
 	/**
 	 * apply curry.ini settings
-	 * 
+	 *
 	 * @return void
 	 */
 	public function applyConfig()
 	{
 		Loader::load('Ini', 'core');
 		Loader::load('Db', 'db');
-		
+
 		$ini = false;
 		if ($this->_appEnv == null) {
 			// Default section is "product"
@@ -110,12 +110,12 @@ class InitializerStandard extends CurryClass
 		if ($ini !== false) {
 			Db::setConfig($ini);
 		}
-		
+
 		$ini = Ini::load('curry.ini');
 		if ($ini === false) {
 			return false;
 		}
-		
+
 		if (array_key_exists('dispatch', $ini)) {
 			$values = $ini['dispatch'];
 			$key = 'plugin_enabled';
@@ -157,6 +157,10 @@ class InitializerStandard extends CurryClass
 			$key = 'action_query_key';
 			if (array_key_exists($key, $values)) {
 				$this->router->setActionQueryKey($values[$key]);
+			}
+			$key = 'constant_suffix';
+			if (array_key_exists($key, $values)) {
+				NameManager::setConstantSuffix($values[$key]);
 			}
 			$key = 'controller_suffix';
 			if (array_key_exists($key, $values)) {
@@ -202,7 +206,7 @@ class InitializerStandard extends CurryClass
 				}
 			}
 		}
-		
+
 		if (array_key_exists('logger', $ini)) {
 			Loader::load('Logger', 'utility');
 			$values = $ini['logger'];
@@ -250,9 +254,9 @@ class InitializerStandard extends CurryClass
 				$dirs = explode(',', $values[$key]);
 				Loader::addAutoloadDirectory($dirs);
 			}
-		
+
 		}
 		return true;
 	}
-	
+
 }

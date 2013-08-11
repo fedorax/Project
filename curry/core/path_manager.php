@@ -12,109 +12,114 @@ class PathManager
 {
 	/**
 	 * Path of curry framework directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_frameworkDir;
-	
+
 	/**
 	 * Path of system root directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_systemDir;
-	
+
 	/**
 	 * Path of application root directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_appDir;
-	
+	/**
+	 * Path of constant directory.
+	 *
+	 * @var string
+	 */
+	private static $_constantsDir;
 	/**
 	 * Path of controller directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_controllerDir;
-	
+
 	/**
 	 * Path of model directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_modelDir;
-	
+
 	/**
 	 * Path of service directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_serviceDir;
-	
+
 	/**
 	 * Path of view root directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_viewDir;
-	
+
 	/**
 	 * Path of view template directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_viewTemplateDir;
-	
+
 	/**
 	 * Path of view layout template directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_viewLayoutDir;
-	
+
 	/**
 	 * Path of view script directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_viewScriptDir;
-	
+
 	/**
 	 * Path of config files directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_configDir;
-	
+
 	/**
 	 * Path of directory to output log.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_logDir;
-	
+
 	/**
 	 * Path of document root directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_htdocsDir;
-	
+
 	/**
 	 * Path of library directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_libDir;
-	
+
 	/**
 	 * Path of data directory.
-	 * 
+	 *
 	 * @var string
 	 */
 	private static $_dataDir;
-	
+
 	/**
 	 * Set path of curry framework root directory
 	 *
@@ -125,7 +130,7 @@ class PathManager
 	{
 		self::$_frameworkDir = rtrim($path, '/');
 	}
-	
+
 	/**
 	 * Set path of system root directory and another directory
 	 * application, config, output log, document root, library at the same time set
@@ -143,7 +148,7 @@ class PathManager
 		self::setLibraryDirectory(self::$_systemDir . '/library');
 		self::setDataDirectory(self::$_systemDir . '/data');
 	}
-	
+
 	/**
 	 * Set path of application root directory and another directory
 	 * controller, model, view, service at the same time set
@@ -154,12 +159,23 @@ class PathManager
 	public static function setAppDirectory($path)
 	{
 		self::$_appDir = rtrim($path, '/');
+		self::setConstantDirectory(self::$_appDir . '/constants');
 		self::setControllerDirectory(self::$_appDir . '/controllers');
 		self::setModelDirectory(self::$_appDir . '/models');
 		self::setViewDirectory(self::$_appDir . '/views');
 		self::setServiceDirectory(self::$_appDir . '/services');
 	}
-	
+
+	/**
+	 * Set path of constant directory
+	 *
+	 * @param string $dir
+	 * @return void
+	 */
+	public static function setConstantDirectory($dir)
+	{
+		self::$_constantsDir = rtrim($dir, '/');
+	}
 	/**
 	 * Set path of controller directory
 	 *
@@ -170,7 +186,7 @@ class PathManager
 	{
 		self::$_controllerDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of model directory
 	 *
@@ -181,7 +197,7 @@ class PathManager
 	{
 		self::$_modelDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of service directory
 	 *
@@ -192,7 +208,7 @@ class PathManager
 	{
 		self::$_serviceDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of view directory
 	 *
@@ -206,7 +222,7 @@ class PathManager
 		self::setViewLayoutDirectory(self::$_viewDir . '/layouts');
 		self::setViewScriptDirectory(self::$_viewDir . '/scripts');
 	}
-	
+
 	/**
 	 * Set path of view template directory
 	 *
@@ -217,7 +233,7 @@ class PathManager
 	{
 		self::$_viewTemplateDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of view layout template directory
 	 *
@@ -228,7 +244,7 @@ class PathManager
 	{
 		self::$_viewLayoutDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of view layout script directory
 	 *
@@ -239,7 +255,7 @@ class PathManager
 	{
 		self::$_viewScriptDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of config file directory
 	 *
@@ -250,7 +266,7 @@ class PathManager
 	{
 		self::$_configDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of directory to output log
 	 *
@@ -261,7 +277,7 @@ class PathManager
 	{
 		self::$_logDir = rtrim($dir, '/');
 	}
-		
+
 	/**
 	 * Set path of document root directory
 	 *
@@ -272,7 +288,7 @@ class PathManager
 	{
 		self::$_htdocsDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Set path of library directory
 	 *
@@ -294,7 +310,7 @@ class PathManager
 	{
 		self::$_dataDir = rtrim($dir, '/');
 	}
-	
+
 	/**
 	 * Get path of curry framework root directory
 	 *
@@ -302,9 +318,9 @@ class PathManager
 	 */
 	public static function getFrameworkRoot()
 	{
-		return self::$_frameworkDir;		
+		return self::$_frameworkDir;
 	}
-	
+
 	/**
 	 * Get path of system root directory
 	 *
@@ -312,9 +328,9 @@ class PathManager
 	 */
 	public static function getSystemRoot()
 	{
-		return self::$_systemDir;		
+		return self::$_systemDir;
 	}
-	
+
 	/**
 	 * Get path of application root directory
 	 *
@@ -324,7 +340,17 @@ class PathManager
 	{
 		return self::$_appDir;
 	}
-	
+
+	/**
+	 * Get path of constant directory
+	 *
+	 * @return string
+	 */
+	public static function getConstantDirectory()
+	{
+		return self::$_constantDir;
+	}
+
 	/**
 	 * Get path of controller directory
 	 *
@@ -334,7 +360,7 @@ class PathManager
 	{
 		return self::$_controllerDir;
 	}
-	
+
 	/**
 	 * Get path of model directory
 	 *
@@ -344,7 +370,7 @@ class PathManager
 	{
 		return self::$_modelDir;
 	}
-	
+
 	/**
 	 * Get path of service directory
 	 *
@@ -374,7 +400,7 @@ class PathManager
 	{
 		return self::$_viewTemplateDir;
 	}
-	
+
 	/**
 	 * Get path of view script directory
 	 *
@@ -384,7 +410,7 @@ class PathManager
 	{
 		return self::$_viewScriptDir;
 	}
-	
+
 	/**
 	 * Get path of view layout template directory
 	 *
@@ -394,7 +420,7 @@ class PathManager
 	{
 		return self::$_viewLayoutDir;
 	}
-	
+
 	/**
 	 * Get path of config file directory
 	 *
@@ -404,7 +430,7 @@ class PathManager
 	{
 		return self::$_configDir;
 	}
-	
+
 	/**
 	 * Get path of directory to output log
 	 *
@@ -414,7 +440,7 @@ class PathManager
 	{
 		return self::$_logDir;
 	}
-	
+
 	/**
 	 * Get path of document root directory
 	 *
@@ -424,7 +450,7 @@ class PathManager
 	{
 		return self::$_htdocsDir;
 	}
-	
+
 	/**
 	 * Get path of library directory
 	 *
