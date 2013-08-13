@@ -1,6 +1,6 @@
 <!-- NavBar -->
 {include file='./parts/nav.tpl'}
-
+<!-- container -->
     <div class="container">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
@@ -35,7 +35,8 @@
         <p>&copy; Company 2013</p>
       </footer>
 
-    </div> <!-- /container -->
+    </div>
+<!-- /container -->
 
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap-transition.js"></script>
