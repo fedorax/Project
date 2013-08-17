@@ -149,6 +149,12 @@ class Dispatcher extends CurryClass
 			}
 
 			$params = $router->route($request->getBasePath());
+			// create constant class instance.
+			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
+			if ($constant == false) {
+				throw new NotFoundException($params['controller'], '');
+			}
+
 			// create controller class instance.
 			$controller = $request->getControllerInstance($params['controller'], $params['subdir']);
 			if ($controller == false) {
