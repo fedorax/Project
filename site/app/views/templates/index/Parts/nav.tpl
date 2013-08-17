@@ -28,7 +28,7 @@
             <form class="navbar-form pull-right" method="post" action="./index.php">
               <input type="text" name="mail" placeholder="Email" class="span2" >
               <input type="password" name="pass" placeholder="Password" class="span2" >
-              <button type="submit" class="btn">Sign in</button>
+              <button type="submit" name="loginbtn" class="btn">Sign in</button>
             </form>
           </div>
           <!--/.nav-collapse -->
