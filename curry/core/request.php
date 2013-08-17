@@ -481,6 +481,19 @@ class Request extends CurryClass
 
 
 	/**
+	 * Get an instance of the constant class for the constant name given in the parameter
+	 *
+	 * @param string $constantName
+	 * @param string $subdir
+	 * @return Constant
+	 */
+	public function getConstantInstance($constantName, $subdir)
+	{
+		$className = NameManager::convertConstantToClass($constantName);
+		$ins = Loader::getConstantInstance($className, $subdir);
+		return $ins;
+	}
+	/**
 	 * Get an instance of the controller class for the controller name given in the parameter
 	 *
 	 * @param string $controllerName
