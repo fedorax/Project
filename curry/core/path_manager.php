@@ -348,7 +348,7 @@ class PathManager
 	 */
 	public static function getConstantDirectory()
 	{
-		return self::$_constantDir;
+		return self::$_constantsDir;
 	}
 
 	/**

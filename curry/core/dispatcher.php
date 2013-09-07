@@ -149,11 +149,18 @@ class Dispatcher extends CurryClass
 			}
 
 			$params = $router->route($request->getBasePath());
+<<<<<<< HEAD
 
 			// create constant class instance.
 			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
 			if ($constant == false) {
 				throw new NotFoundException($params['controller'], '');
+=======
+			// create constant class instance.
+			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
+			if ($constant == false) {
+				throw new NotFoundException($params['controller'], '');
+>>>>>>> branch 'master' of https://github.com/fedorax/Project.git
 			}
 
 			// create controller class instance.
