@@ -149,12 +149,19 @@ class Dispatcher extends CurryClass
 			}
 
 			$params = $router->route($request->getBasePath());
+
+			// create constant class instance.
+			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
+			if ($constant == false) {
+				throw new NotFoundException($params['controller'], '');
+			}
+
 			// create controller class instance.
 			$controller = $request->getControllerInstance($params['controller'], $params['subdir']);
 			if ($controller == false) {
 				throw new NotFoundException($params['controller'], '');
 			}
-
+			
 			// create view class instance.
 			Loader::load($this->_viewClassName, null, true, false);
 			$viewClass = $this->_viewClassName;
@@ -166,7 +173,10 @@ class Dispatcher extends CurryClass
 
 			$request->setAction($params['action']);
 			$request->setParams($params['params']);
-
+			
+			// load constants class instance.
+			Loader::loadConstant($params['controller'],$params['subdir']);
+			
 			$view->setRequest($request);
 			$view->initialize();
 			$viewInitialized = true;
