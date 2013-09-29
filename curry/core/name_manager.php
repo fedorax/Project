@@ -50,7 +50,7 @@ class NameManager
 	 *
 	 * @var string
 	 */
-	private static $_actionSuffix  = '';
+	private static $_actionSuffix  = 'Action';
 
 	/**
 	 * Rest suffix of action method name

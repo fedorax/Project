@@ -1,4 +1,25 @@
-<div class="navbar navbar-fixed-top">
+<?php /* Smarty version Smarty-3.1.12, created on 2013-08-18 08:26:26
+         compiled from "C:\xampp\htdocs\Project\site\app\views\templates\index\parts\nav.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:11444520f8990a9cdd7-67713560%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'cfbaf372133091675b245ef45384046b9a743e9d' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Project\\site\\app\\views\\templates\\index\\parts\\nav.tpl',
+      1 => 1376807138,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '11444520f8990a9cdd7-67713560',
+  'function' => 
+  array (
+  ),
+  'version' => 'Smarty-3.1.12',
+  'unifunc' => 'content_520f8990aa6883_02754322',
+  'has_nocache_code' => false,
+),false); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_520f8990aa6883_02754322')) {function content_520f8990aa6883_02754322($_smarty_tpl) {?><div class="navbar navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -37,4 +58,4 @@
 		<!--/.nav-collapse -->
 	</div>
 </div>
-</div>
+</div><?php }} ?>

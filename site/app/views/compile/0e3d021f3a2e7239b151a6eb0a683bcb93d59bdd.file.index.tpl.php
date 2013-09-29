@@ -1,5 +1,27 @@
-<!-- NavBar -->
-{include file='./parts/nav.tpl'}
+<?php /* Smarty version Smarty-3.1.12, created on 2013-08-18 08:31:05
+         compiled from "C:\xampp\htdocs\Project\site\app\views\templates\index\index.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:1415520f89909c01e3-72274045%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '0e3d021f3a2e7239b151a6eb0a683bcb93d59bdd' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\Project\\site\\app\\views\\templates\\index\\index.tpl',
+      1 => 1376807462,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '1415520f89909c01e3-72274045',
+  'function' => 
+  array (
+  ),
+  'version' => 'Smarty-3.1.12',
+  'unifunc' => 'content_520f8990a82392_10782852',
+  'has_nocache_code' => false,
+),false); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_520f8990a82392_10782852')) {function content_520f8990a82392_10782852($_smarty_tpl) {?><!-- NavBar -->
+<?php echo $_smarty_tpl->getSubTemplate ('./parts/nav.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
+
 <!-- container -->
 <div class="container">
 	<div class="page-header" id="banner">
@@ -74,3 +96,4 @@
 <script src="../assets/js/bootstrap-collapse.js"></script>
 <script src="../assets/js/bootstrap-carousel.js"></script>
 <script src="../assets/js/bootstrap-typeahead.js"></script>
+<?php }} ?>

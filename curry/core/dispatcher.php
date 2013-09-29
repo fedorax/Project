@@ -149,11 +149,6 @@ class Dispatcher extends CurryClass
 			}
 
 			$params = $router->route($request->getBasePath());
-			// create constant class instance.
-			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
-			if ($constant == false) {
-				throw new NotFoundException($params['controller'], '');
-			}
 
 			// create controller class instance.
 			$controller = $request->getControllerInstance($params['controller'], $params['subdir']);
@@ -161,6 +156,11 @@ class Dispatcher extends CurryClass
 				throw new NotFoundException($params['controller'], '');
 			}
 
+			// create constant class instance.
+			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
+			if ($constant == false) {
+				throw new NotFoundException($params['controller'], '');
+			}
 			// create view class instance.
 			Loader::load($this->_viewClassName, null, true, false);
 			$viewClass = $this->_viewClassName;
@@ -186,23 +186,6 @@ class Dispatcher extends CurryClass
 			// set view to controller.
 			$controller->setView($view);
 
-			// get action method name.
-			$reqestMethod = null;
-			$actionMethod = '';
-			if ($controller instanceof RestController) {
-				$request->isRestAccess(true);
-				$reqestMethod = $request->getMethod();
-				if ($params['action'] == 'index' && $reqestMethod != 'GET') {
-					$restDefaultMethod = NameManager::convertActionToMethod($reqestMethod);
-					if (method_exists($controller, $restDefaultMethod)) {
-						$actionMethod = $restDefaultMethod;
-					}
-				}
-			}
-			if ($actionMethod == '') {
-				$actionMethod = NameManager::convertActionToMethod($params['action'], $reqestMethod);
-			}
-
 			// initialize validator
 			$validatorClass = $this->_validatorClassName;
 			$validator = new $validatorClass();
@@ -221,7 +204,25 @@ class Dispatcher extends CurryClass
 				}
 			}
 
+			// do preProcess.
 			$controller->preProcess();
+
+			// get action method name.
+			$reqestMethod = null;
+			$actionMethod = '';
+			if ($controller instanceof RestController) {
+				$request->isRestAccess(true);
+				$reqestMethod = $request->getMethod();
+				if ($params['action'] == 'index' && $reqestMethod != 'GET') {
+					$restDefaultMethod = NameManager::convertActionToMethod($reqestMethod);
+					if (method_exists($controller, $restDefaultMethod)) {
+						$actionMethod = $restDefaultMethod;
+					}
+				}
+			}
+			if ($actionMethod == '') {
+				$actionMethod = NameManager::convertActionToMethod($controller->getRequest()->getAction(), $reqestMethod);
+			}
 
 			if ($controller->isDispatched() == false) {
 	 			// Check action method exists.

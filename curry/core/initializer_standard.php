@@ -38,7 +38,7 @@ class InitializerStandard extends CurryClass
 	 */
 	public function __construct($appEnv = null)
 	{
-        error_reporting(0);
+        //error_reporting(0);
 		$this->_appEnv = $appEnv;
 	}
 

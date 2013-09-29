@@ -10,7 +10,7 @@ class IndexController extends Controller
      * Route Action
      * アクションコントロールを呼び出し、アクションを指定します。
      */
-    public function postProcess()
+    public function preProcess()
     {
     	if(count($this->request->getPost()) == 0)
     	{
@@ -44,22 +44,21 @@ class IndexController extends Controller
      */
     public function actionControl()
     {
-//     	echo IndexConstant::LoginBtn;
-//     	// POST
-//     	$post = $this->request->getPost();
-//     	foreach(array_keys($post) as $act)
-//     	{
-//     		if($act == IndexConstant::LoginBtn)
-//     		{
-//     			return IndexConstant::LoginAct;
-//     		}
-//     	}
-//     	return IndexConstant::IndexAct;
+    	// POST
+    	$post = $this->request->getPost();
+    	foreach(array_keys($post) as $act)
+    	{
+    		if($act == IndexConstant::LoginBtn)
+    		{
+    			return IndexConstant::LoginAct;
+    		}
+    	}
+    	return IndexConstant::IndexAct;
     }
 	/**
 	 * ログインアクション
 	 */
-    public function login()
+    public function loginAction()
     {
 		$req = $this->request;
 		$action = $req->getAction();
@@ -67,7 +66,7 @@ class IndexController extends Controller
     /**
      * indexアクション
      */
-	public function index()
+	public function indexAction()
 	{
 		// リクエストオブジェクト
 		$req = $this->request;

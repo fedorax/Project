@@ -4946,12 +4946,6 @@ input[type="submit"].btn.btn-mini {
   background-color: #000000 \9;
 }
 
-/* sidebar-nav */
-.sidebar-nav
-{
-  width:320px;
-  height:100%;
-}
 .breadcrumb {
   padding: 8px 15px;
   margin: 0 0 20px;
