@@ -154,17 +154,19 @@ class Dispatcher extends CurryClass
 			if ($constant == false) {
 				throw new NotFoundException($params['controller'], '');
 			}
+
 			// create controller class instance.
 			$controller = $request->getControllerInstance($params['controller'], $params['subdir']);
 			if ($controller == false) {
 				throw new NotFoundException($params['controller'], '');
 			}
-
+/*
 			// create constant class instance.
 			$constant = $request->getConstantInstance($params['controller'], $params['subdir']);
 			if ($constant == false) {
 				throw new NotFoundException($params['controller'], '');
 			}
+*/
 			// create view class instance.
 			Loader::load($this->_viewClassName, null, true, false);
 			$viewClass = $this->_viewClassName;

@@ -4,7 +4,7 @@ class IndexController extends Controller
 {
     public function __construct()
     {
-    	//require_once 'constants/index_constant.php';
+    	$this->_pageTitle = IndexConstant::PageTitle;
     }
     /**
      * Route Action
@@ -31,10 +31,9 @@ class IndexController extends Controller
     public function initialize()
     {
     	parent::initialize();
-
-        $this->_pageTitle = "Sample Index";
         $this->getView()->addJs("bootstrap");
         $this->getView()->addCss("bootstrap");
+        $this->getView()->addCss("bootstrap-responsive");
     }
 
     /**
@@ -83,8 +82,6 @@ class IndexController extends Controller
 		$query= $req->getQuery();
 		// URLパラメーター
 		$params= $req->getparams();
-
-
 	}
 }
 ?>
