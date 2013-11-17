@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 * jQuery Mobile 1.3.2
 * Git HEAD hash: 528cf0e96940644ea644096bfeb913ed920ffaef <> Date: Fri Jul 19 2013 22:17:57 UTC
 * http://jquerymobile.com
@@ -31,7 +31,7 @@
 .ui-btn-hover, .ui-btn-hover-c, .ui-btn-up-c, .ui-btn-down-c, .ui-bar-c
 {
     background-image:none; /* no gradation */
-    text-shadow:none; 
+    text-shadow:none;
     box-shadow:none;
 
 }
@@ -47,4 +47,9 @@ label.ui-input-text
 .text-center
 {
 	text-align: center;
+}
+.item
+{
+	margin:4px 0px;
+}
 }
